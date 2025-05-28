@@ -1,0 +1,41 @@
+const AnimatedInfoCard = ({
+    value,
+    percent,
+    label,
+    icon,
+    className,
+    txColor,
+    iconColor = 'bg-blue-200 text-blue-500 dark:text-blue-400 dark:bg-blue-800/35',
+}) => {
+    return (
+        <div
+            className={`bg-white/90 dark:bg-gray-900/80 rounded-2xl shadow p-5 flex flex-col gap-2 w-full max-w-xs min-w-[220px] ${className}`}
+        >
+            <div className='flex items-center justify-between'>
+                <div>
+                    <div className='text-xs text-gray-500 font-medium mb-1'>
+                        {label}
+                    </div>
+                    <div className='text-2xl font-bold text-gray-900 dark:text-white'>
+                        {value}
+                    </div>
+                </div>
+                <div
+                    className={`w-10 h-10 flex items-center justify-center rounded-lg  ${iconColor}`}
+                >
+                    {icon}
+                </div>
+            </div>
+            <div className='flex items-center gap-2 mt-1'>
+                <span
+                    className={`text-green-500 font-semibold text-sm ${txColor}`}
+                >
+                    ↑ {percent}%
+                </span>
+                <span className='text-xs text-gray-400'>vs last period</span>
+            </div>
+        </div>
+    );
+};
+
+export default AnimatedInfoCard;

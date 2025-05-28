@@ -1,0 +1,53 @@
+<svg
+                width={dimensions.width}
+                height={dimensions.height}
+                className='absolute inset-0'
+                style={{ display: 'block', width: '100vw', height: '100vh' }}
+            >
+                {/* Vertical Lines */}
+                {Array.from({ length: cols + 1 }).map((_, i) => (
+                    <line
+                        key={`v-${i}`}
+                        x1={i * GRID_SIZE}
+                        y1={0}
+                        x2={i * GRID_SIZE}
+                        y2={dimensions.height}
+                        stroke='currentColor'
+                        strokeWidth='1'
+                        opacity='0.13'
+                        className='text-gray-300 dark:text-gray-800 transition-colors duration-300 animated-vline'
+                    />
+                ))}
+                {/* Horizontal Lines */}
+                {Array.from({ length: rows + 1 }).map((_, i) => (
+                    <line
+                        key={`h-${i}`}
+                        x1={0}
+                        y1={i * GRID_SIZE}
+                        x2={dimensions.width}
+                        y2={i * GRID_SIZE}
+                        stroke='currentColor'
+                        strokeWidth='1'
+                        opacity='0.13'
+                        className='text-gray-300 dark:text-gray-800 transition-colors duration-300 animated-hline'
+                    />
+                ))}
+                {/* Grid Points (skip sebagian) */}
+                {Array.from({ length: cols + 1 }).map((_, i) =>
+                    i % DOT_SKIP === 0
+                        ? Array.from({ length: rows + 1 }).map((_, j) =>
+                              j % DOT_SKIP === 0 ? (
+                                  <circle
+                                      key={`dot-${i}-${j}`}
+                                      cx={i * GRID_SIZE}
+                                      cy={j * GRID_SIZE}
+                                      r={2.5 * intensity}
+                                      fill='currentColor'
+                                      opacity={intensity}
+                                      className='text-blue-400 dark:text-blue-900 transition-colors duration-300'
+                                  />
+                              ) : null,
+                          )
+                        : null,
+                )}
+            </svg>
