@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 const UlLink = ({ to, children, className, ...props }) => {
     const defaultClassName = 'text-black dark:text-white font-light';
-    const combinedClassName = className || defaultClassName;
+    const combinedClassName = className
+        ? `${defaultClassName} ${className}`
+        : defaultClassName; // Menggabungkan className dengan benar
 
     return (
         <Link
@@ -15,6 +17,8 @@ const UlLink = ({ to, children, className, ...props }) => {
         </Link>
     );
 };
+
+// Menambahkan PropTypes untuk validasi props
 UlLink.propTypes = {
     to: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,

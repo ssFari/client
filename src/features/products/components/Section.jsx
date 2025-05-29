@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import MouseSVG from '../../../assets/svg/MouseSVG';
+import PropTypes from 'prop-types'; // Import PropTypes
 
 const Section = ({ className, id, children, underCross }) => {
     const handleScrollTop = () => {
@@ -8,7 +9,7 @@ const Section = ({ className, id, children, underCross }) => {
 
     return (
         <section
-            className={`relative w-full h-full flex flex-col mb-5 ${className} `}
+            className={`relative w-full h-full flex flex-col mb-5 z-30 ${className}`}
             id={id}
         >
             <div className='flex flex-col items-center justify-center gap-6'>
@@ -39,6 +40,14 @@ const Section = ({ className, id, children, underCross }) => {
             )}
         </section>
     );
+};
+
+// Menambahkan PropTypes untuk validasi props
+Section.propTypes = {
+    className: PropTypes.string,
+    id: PropTypes.string,
+    children: PropTypes.node, // children bisa berupa elemen React atau lainnya
+    underCross: PropTypes.bool,
 };
 
 export default Section;

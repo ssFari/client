@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'; // Import PropTypes
+
 const Card = ({ className, children, title, icon, paragraph, ...props }) => {
     return (
         <div
@@ -21,6 +23,15 @@ const Card = ({ className, children, title, icon, paragraph, ...props }) => {
             </div>
         </div>
     );
+};
+
+// Menambahkan PropTypes untuk validasi props
+Card.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.node, // Children bisa berupa elemen React atau lainnya
+    title: PropTypes.string.isRequired, // Title wajib ada
+    icon: PropTypes.node, // Icon bisa berupa elemen React
+    paragraph: PropTypes.string,
 };
 
 export default Card;

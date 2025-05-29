@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const AnimatedInfoCard = ({
     value,
     percent,
@@ -36,6 +38,16 @@ const AnimatedInfoCard = ({
             </div>
         </div>
     );
+};
+
+AnimatedInfoCard.propTypes = {
+    value: PropTypes.string.isRequired,
+    percent: PropTypes.number.isRequired,
+    label: PropTypes.string.isRequired,
+    icon: PropTypes.node.isRequired, // icon bisa berupa elemen React
+    className: PropTypes.string,
+    txColor: PropTypes.string,
+    iconColor: PropTypes.string,
 };
 
 export default AnimatedInfoCard;

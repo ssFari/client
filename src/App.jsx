@@ -8,7 +8,7 @@ const App = () => {
     useDarkMode();
     return (
         <>
-            <div className='w-full min-h-screen bg-gray-50 dark:bg-gray-950 dark:text-white text-black font-montserrat text-base'>
+            <div className='w-full min-h-screen bg-gray-50 dark:bg-gray-950 dark:text-white text-black font-montserrat text-base overflow-hidden'>
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' element={<MainLayout />}>

@@ -29,14 +29,6 @@ export const routesNavbar = [
         href: '/about',
     },
     {
-        title: 'Features',
-        href: '/services',
-    },
-    {
-        title: 'Pricing',
-        href: '/pricing',
-    },
-    {
         title: "What's New",
         href: '/whats-new',
     },

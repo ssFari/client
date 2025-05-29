@@ -11,6 +11,11 @@
     --font-inter: 'Inter', sans-serif;
 }
 
+.container-full {
+    width: 100%;
+    max-width: 2560px;
+}
+
 @keyframes fadeOut {
     0% {
         display: hidden;

@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+    useEffect,
+    useRef,
+    useState,
+    useCallback,
+    useMemo,
+} from 'react';
 import {
     LineChart,
     Line,
@@ -12,14 +18,16 @@ import {
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
-const generateMonthlyData = () =>
-    months.map((month) => ({
-        month,
-        income: Math.round(2000 + Math.random() * 1000),
-        expense: Math.round(1200 + Math.random() * 800),
-    }));
-
 const RealtimeChart = () => {
+    // Menggunakan useCallback untuk fungsi yang akan diregenerasi setiap 3 detik
+    const generateMonthlyData = useCallback(() => {
+        return months.map((month) => ({
+            month,
+            income: Math.round(2000 + Math.random() * 1000),
+            expense: Math.round(1200 + Math.random() * 800),
+        }));
+    }, []); // Dependensi kosong karena tidak bergantung pada props/state lain yang berubah
+
     const [data, setData] = useState(generateMonthlyData());
     const intervalRef = useRef();
     const [isDark, setIsDark] = useState(false);
@@ -29,29 +37,41 @@ const RealtimeChart = () => {
             setData(generateMonthlyData());
         }, 3000);
         return () => clearInterval(intervalRef.current);
-    }, []);
+    }, [generateMonthlyData]); // Menambahkan generateMonthlyData sebagai dependensi
 
-    // Cek dark mode dari class pada body (Tailwind dark mode)
     useEffect(() => {
+        const htmlElement = document.documentElement;
+
         const checkDark = () => {
-            setIsDark(document.documentElement.classList.contains('dark'));
+            setIsDark(htmlElement.classList.contains('dark'));
         };
+
+        // Cek preferensi awal saat komponen dipasang
         checkDark();
-        window.addEventListener('classChange', checkDark);
-        // Fallback: juga cek saat theme berubah
-        const observer = new MutationObserver(checkDark);
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class'],
+
+        // Gunakan MutationObserver untuk mendeteksi perubahan atribut 'class' pada <html>
+        // yang diubah oleh useDarkMode
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                if (
+                    mutation.type === 'attributes' &&
+                    mutation.attributeName === 'class'
+                ) {
+                    checkDark();
+                }
+            }
         });
+
+        observer.observe(htmlElement, { attributes: true });
+
+        // Bersihkan observer saat komponen dilepas
         return () => {
-            window.removeEventListener('classChange', checkDark);
             observer.disconnect();
         };
-    }, []);
+    }, []); // Dependensi kosong karena hanya perlu dijalankan sekali saat mount
 
-    // Pilih warna grid sesuai mode
-    const gridColor = isDark ? '#374151' : '#e5e7eb'; // dark: slate-700, light: gray-200
+    // Pilih warna grid sesuai mode, dihitung ulang hanya jika isDark berubah
+    const gridColor = useMemo(() => (isDark ? '#374151' : '#e5e7eb'), [isDark]);
 
     return (
         <div className='w-full h-fit bg-gray-50 dark:bg-gray-900/60 rounded-xl p-4 shadow flex flex-col gap-4'>

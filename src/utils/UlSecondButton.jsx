@@ -4,7 +4,9 @@ import { FaArrowRight } from 'react-icons/fa6';
 
 const UlSecondButton = ({ to, children, className, ...props }) => {
     const defaultClassName = 'bg-transparent border border-gray-900';
-    const combinedClassName = className || defaultClassName;
+    const combinedClassName = className
+        ? `${defaultClassName} ${className}`
+        : defaultClassName; // Menggabungkan className dengan benar
 
     return (
         <Link
@@ -22,6 +24,8 @@ const UlSecondButton = ({ to, children, className, ...props }) => {
         </Link>
     );
 };
+
+// Menambahkan PropTypes untuk validasi props
 UlSecondButton.propTypes = {
     to: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 const UlPrimaryButton = ({ to, children, className, ...props }) => {
     const defaultClassName = 'bg-blue-600';
-    const combinedClassName = className || defaultClassName;
+    const combinedClassName = className
+        ? `${defaultClassName} ${className}`
+        : defaultClassName; // Menggabungkan className dengan benar
 
     return (
         <Link
@@ -15,6 +17,8 @@ const UlPrimaryButton = ({ to, children, className, ...props }) => {
         </Link>
     );
 };
+
+// Menambahkan PropTypes untuk validasi props
 UlPrimaryButton.propTypes = {
     to: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,

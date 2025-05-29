@@ -62,14 +62,14 @@ export default function BgGrid() {
                 />
             ))}
             {/* Blur di samping kiri & kanan */}
-            <div className='pointer-events-none absolute top-0 left-0 h-full lg:w-7xl'>
+            <div className='pointer-events-none absolute top-0 left-0 h-full lg:w-3xl'>
                 <div className='w-full h-full bg-gradient-to-r from-gray-50 dark:from-gray-950 to-transparent' />
             </div>
-            <div className='pointer-events-none absolute top-0 right-0 h-full lg:w-7xl'>
+            <div className='pointer-events-none absolute top-0 right-0 h-full lg:w-3xl'>
                 <div className='w-full h-full bg-gradient-to-l from-gray-50 dark:from-gray-950 to-transparent' />
             </div>
             {/* Blur di samping atas & bawah */}
-            <div className='pointer-events-none absolute left-0 top-0 w-full  lg:h-6/12'>
+            <div className='pointer-events-none absolute left-0 top-0 w-full h-6/12'>
                 <div className='w-full h-full bg-gradient-to-b from-gray-50 dark:from-gray-950 to-transparent' />
             </div>
             <div className='pointer-events-none absolute left-0 bottom-0 w-full lg:h-6/12'>

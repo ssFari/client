@@ -1,20 +1,26 @@
 import PropTypes from 'prop-types';
 import { Minus, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useCallback } from 'react'; // Tambahkan useCallback
 import useHandleClick from '../hooks/useHandleClick';
 
 const DropDown = ({ title, description, open, setOpen }) => {
     const dropdownRef = useRef(null);
 
     // Menggunakan custom hook untuk mendeteksi klik di luar dropdown
-    useHandleClick(dropdownRef, () => setOpen(false));
+    // Jika dropdown terbuka dan ada klik di luar dropdownRef, panggil setOpen(false)
+    useHandleClick(open ? [dropdownRef] : [], () => setOpen(false));
+
+    // Menggunakan useCallback untuk fungsi toggle agar stabil
+    const handleToggle = useCallback(() => {
+        setOpen((prev) => !prev);
+    }, [setOpen]); // setOpen adalah dependensi karena berasal dari prop
 
     return (
         <motion.div
             ref={dropdownRef}
             className='w-full rounded-[10px] bg-gray-200 dark:bg-gray-900 cursor-pointer'
-            onClick={() => setOpen((prev) => !prev)}
+            onClick={handleToggle} // Menggunakan fungsi handleToggle yang stabil
             aria-expanded={open}
             tabIndex={0}
             initial={{ height: 'auto', opacity: 1 }}
@@ -38,11 +44,15 @@ const DropDown = ({ title, description, open, setOpen }) => {
                     {open ? (
                         <Minus
                             size={20}
-                            className='text-gray-400'
-                            color='#fff'
+                            className='text-gray-400 dark:text-white' // Tambahkan dark mode color
+                            color='#fff' // Ini mungkin tidak efektif jika di-override oleh className
                         />
                     ) : (
-                        <Plus size={20} color='#fff' />
+                        <Plus
+                            size={20}
+                            className='text-gray-400 dark:text-white' // Tambahkan dark mode color
+                            color='#fff' // Ini mungkin tidak efektif jika di-override oleh className
+                        />
                     )}
                 </span>
             </div>
@@ -53,13 +63,13 @@ const DropDown = ({ title, description, open, setOpen }) => {
                         layout
                         initial={{ opacity: 0, height: 0, y: -10 }}
                         animate={{ opacity: 1, height: 'auto', y: 0 }}
-                        exit={{ opacity: 0, height: 0, y: 0 }} // Perbaikan: Kurangi animasi exit
+                        exit={{ opacity: 0, height: 0, y: 0 }}
                         transition={{
-                            opacity: { duration: 0.2, ease: 'easeInOut' }, // Perbaikan: Kurangi durasi animasi
+                            opacity: { duration: 0.2, ease: 'easeInOut' },
                             y: {
                                 type: 'spring',
                                 stiffness: 500,
-                                damping: 20, // Perbaikan: Sesuaikan damping agar lebih responsif
+                                damping: 20,
                             },
                         }}
                         className='overflow-hidden'
@@ -74,7 +84,7 @@ const DropDown = ({ title, description, open, setOpen }) => {
     );
 };
 
-// Pastikan hanya ada satu ekspor default
+// PropTypes untuk validasi props
 DropDown.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

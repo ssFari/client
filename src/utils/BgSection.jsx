@@ -2,6 +2,7 @@ import BgSectionSVG from '../assets/svg/BgSectionSVG';
 import AnimatedInfoCard from '../components/AnimatedInfoCard';
 import { DollarSign } from 'lucide-react';
 import { motion } from 'framer-motion';
+import PropTypes from 'prop-types'; // Import PropTypes
 
 const BgSection = ({ animated = false, className = '', ...props }) => {
     return (
@@ -32,7 +33,7 @@ const BgSection = ({ animated = false, className = '', ...props }) => {
                             percent={4.6}
                             label='Total Balance'
                             icon={<DollarSign size={20} />}
-                            color='#6366f1'
+                            color='#6366f1' // Perbaikan: `color` mungkin tidak digunakan, periksa `AnimatedInfoCard`
                         />
                     </motion.div>
                     <motion.div
@@ -61,6 +62,14 @@ const BgSection = ({ animated = false, className = '', ...props }) => {
             )}
         </div>
     );
+};
+
+// Menambahkan PropTypes untuk validasi props
+BgSection.propTypes = {
+    animated: PropTypes.bool,
+    className: PropTypes.string,
+    // PropTypes untuk props lain yang mungkin diteruskan ke div seperti 'aria-hidden'
+    // ...props akan diteruskan ke div, jadi tidak perlu didefinisikan di propTypes secara eksplisit kecuali Anda ingin memvalidasinya
 };
 
 export default BgSection;
