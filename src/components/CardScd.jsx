@@ -3,7 +3,7 @@ import { Star } from 'lucide-react';
 
 const CardScd = ({ name, occupation, photo, message, rating }) => {
     return (
-        <div className='bg-white/90 dark:bg-gray-900/80 rounded-2xl shadow p-5 flex flex-col gap-3 w-full min-w-xs max-w-xs border-gray-100 dark:border-gray-800'>
+        <div className='bg-white/90 dark:bg-gray-900/80 rounded-2xl shadow p-5 flex flex-col gap-3 w-full min-w-xs max-w-xs h-full border-gray-100 dark:border-gray-800'>
             <div className='flex items-center gap-3'>
                 <img
                     src={photo}
@@ -22,7 +22,7 @@ const CardScd = ({ name, occupation, photo, message, rating }) => {
             <div className='text-gray-700 dark:text-gray-300 text-sm italic'>
                 "{message}"
             </div>
-            <div className='flex items-center gap-1 mt-1'>
+            <div className='w-full h-full flex items-end justify-start'>
                 {[...Array(5)].map((_, i) => (
                     <Star
                         key={i}

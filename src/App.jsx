@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import useDarkMode from './hooks/useDarkMode';
 import MainLayout from './features/products/layouts/MainLayout';
-import { Home, About } from './features/products/pages/pagesAll';
+import { Home, About, WhatNew } from './features/products/pages/pagesAll';
 
 const App = () => {
     useDarkMode();
@@ -14,6 +14,7 @@ const App = () => {
                         <Route path='/' element={<MainLayout />}>
                             <Route index element={<Home />} />
                             <Route path='/about' element={<About />} />
+                            <Route path='/whats-new' element={<WhatNew />} />
                         </Route>
                     </Routes>
                 </BrowserRouter>

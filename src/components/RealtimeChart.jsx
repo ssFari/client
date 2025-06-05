@@ -77,7 +77,9 @@ const RealtimeChart = () => {
         <div className='w-full h-fit bg-gray-50 dark:bg-gray-900/60 rounded-xl p-4 shadow flex flex-col gap-4'>
             <div>
                 <h3 className='font-semibold'>Monthly Income vs Expense</h3>
-                <span className='text-[12px] text-gray-500'>last 6 months</span>
+                <span className='text-[12px] dark:text-white/70 text-black/80'>
+                    last 6 months
+                </span>
             </div>
             <ResponsiveContainer width='100%' height={300}>
                 <LineChart

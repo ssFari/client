@@ -15,12 +15,10 @@ const AnimatedInfoCard = ({
         >
             <div className='flex items-center justify-between'>
                 <div>
-                    <div className='text-xs text-gray-500 font-medium mb-1'>
+                    <div className='text-xs dark:text-white/70 text-black/80 font-medium mb-1'>
                         {label}
                     </div>
-                    <div className='text-2xl font-bold text-gray-900 dark:text-white'>
-                        {value}
-                    </div>
+                    <div className='text-2xl font-bold'>{value}</div>
                 </div>
                 <div
                     className={`w-10 h-10 flex items-center justify-center rounded-lg  ${iconColor}`}
@@ -34,7 +32,9 @@ const AnimatedInfoCard = ({
                 >
                     ↑ {percent}%
                 </span>
-                <span className='text-xs text-gray-400'>vs last period</span>
+                <span className='text-xs dark:text-white/70 text-black/80'>
+                    vs last period
+                </span>
             </div>
         </div>
     );

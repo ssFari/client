@@ -1,5 +1,5 @@
 // src/features/products/pages/Home.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaCircleInfo } from 'react-icons/fa6';
 import {
@@ -24,6 +24,8 @@ import {
 } from '../routes/Routes';
 import { Award, BadgeDollarSign, Check } from 'lucide-react';
 import DropDown from '../../../utils/DropDown';
+import useMotionAnimation from '../../../hooks/useMotionAnimation';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
     const { bg1X, bg1Y, bg2X, bg2Y, bg3X, bg3Y } = useHandleMouseMove();
@@ -42,6 +44,21 @@ const Home = () => {
         });
     };
 
+    const { fadeUp, fadeIn, stagger } = useMotionAnimation();
+
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const scrollId = params.get('scroll');
+        if (scrollId) {
+            const section = document.getElementById(scrollId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [location]);
+
     return (
         <div className='relative w-full h-max'>
             {/* Hero Section */}
@@ -58,34 +75,66 @@ const Home = () => {
             </div>
             <Section id='home'>
                 <div className='relative z-10 px-4 sm:px-6 lg:px-8 mt-34 md:mt-56 flex flex-col items-center justify-center gap-12'>
-                    <div className='flex flex-col items-center justify-center gap-6 h-[350px]'>
-                        <UlLinkScd to='/more-info'>
-                            <FaCircleInfo />
-                            Get more information
-                        </UlLinkScd>
-                        <h1 className='text-4xl md:text-5xl lg:text-6xl font-poppins font-bold text-center dark:text-white text-black'>
+                    <motion.div
+                        className='flex flex-col items-center justify-center gap-6 h-[350px]'
+                        initial='hidden'
+                        animate='visible'
+                        variants={stagger}
+                    >
+                        <motion.div variants={fadeUp}>
+                            <UlLinkScd to='/more-info'>
+                                <FaCircleInfo />
+                                Get more information
+                            </UlLinkScd>
+                        </motion.div>
+                        <motion.h1
+                            className='text-4xl md:text-5xl lg:text-6xl font-poppins font-bold text-center'
+                            variants={fadeUp}
+                        >
                             Manage Your Finances <br /> Effortlessly with
                             Wealthy
-                        </h1>
-                        <p className='text-xl max-sm:text-base max-md:text-lg dark:text-white text-black'>
+                        </motion.h1>
+                        <motion.p
+                            className='text-xl max-sm:text-base max-md:text-lg dark:text-white/70 text-black/80 text-center'
+                            variants={fadeUp}
+                        >
                             Track your income, expenses, and savings in one
                             place.
-                        </p>
-                        <div className='flex items-center justify-center gap-4'>
-                            <UlPrimaryButton to='/contact'>
+                        </motion.p>
+                        <motion.div
+                            className='flex items-center justify-center gap-4'
+                            variants={fadeUp}
+                        >
+                            <UlPrimaryButton to='/auth/login'>
                                 <span>Get Started</span>
                             </UlPrimaryButton>
                             <UlSecondButton
                                 className='dark:bg-gray-900 bg-gray-100 border border-gray-300 dark:border-gray-700'
-                                to='/contact'
+                                to='#faq'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const section =
+                                        document.getElementById('faq');
+                                    if (section) {
+                                        section.scrollIntoView({
+                                            behavior: 'smooth',
+                                            block: 'start',
+                                        });
+                                    }
+                                }}
                             >
                                 <span className='tracking-tight'>
                                     Learn More
                                 </span>
                             </UlSecondButton>
-                        </div>
-                    </div>
-                    <div className='relative w-full h-[34rem] lg:h-[48rem] mx-auto lg:min-w-5xl xl:min-w-7xl mb-24 flex items-center justify-center'>
+                        </motion.div>
+                    </motion.div>
+                    <motion.div
+                        className='relative w-full h-[34rem] lg:h-[48rem] mx-auto lg:min-w-5xl xl:min-w-7xl mb-24 flex items-center justify-center'
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                    >
                         <motion.div
                             style={{ x: bg1X, y: bg1Y }}
                             className='absolute dark:bg-gray-800 bg-gray-200 w-[calc(100%-10rem)] h-[calc(100%-5rem)] rounded-2xl top-[138px] will-change-transform'
@@ -94,7 +143,16 @@ const Home = () => {
                             style={{ x: bg2X, y: bg2Y }}
                             className='absolute dark:bg-gray-900 bg-gray-100 w-[calc(100%-5rem)] h-[calc(100%-5rem)] rounded-2xl top-[112px] will-change-transform'
                         />
-                        <div className='relative w-full h-full rounded-2xl flex items-center justify-center overflow-hidden'>
+                        <motion.div
+                            className='relative w-full h-full rounded-2xl flex items-center justify-center overflow-hidden'
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                                duration: 0.8,
+                                delay: 0.2,
+                                ease: 'easeOut',
+                            }}
+                        >
                             <div className='relative w-full min-w-fit h-full rounded-2xl flex items-center justify-center overflow-hidden'>
                                 <img
                                     src={hero}
@@ -102,18 +160,24 @@ const Home = () => {
                                     className='absolute w-full min-w-fit h-fit object-contain xl:bottom-[-32rem] lg:bottom-[-17rem]'
                                 />
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </Section>
             {/* Features Section */}
             <Section id='features' className='pt-36'>
-                <div className='relative w-full mx-auto xl:max-w-[100rem] h-full'>
+                <div className='relative w-full mx-auto xl:max-w-7xl h-full'>
                     <div
                         ref={featureRef}
-                        className='relative h-min flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 px-4 md:px-6 lg:px-8'
+                        className='relative h-min w-full flex flex-col lg:flex-row justify-between items-center lg:items-start gap-10 px-4 md:px-6 lg:px-8'
                     >
-                        <div className='relative flex flex-col flex-2/4 w-full max-w-max h-full'>
+                        <motion.div
+                            className='relative flex flex-col flex-2/4 w-full max-w-max h-full'
+                            initial='hidden'
+                            whileInView='visible'
+                            viewport={{ once: true, amount: 0.3 }}
+                            variants={fadeUp}
+                        >
                             <motion.div
                                 style={{
                                     y: isLgUp ? tagY : 0,
@@ -121,7 +185,8 @@ const Home = () => {
                                     top: isLgUp ? 120 : 'auto',
                                     zIndex: 10,
                                 }}
-                                className='w-full max-w-xl flex flex-col gap-6'
+                                className='w-full max-w-xl flex flex-col items-center lg:items-start gap-6'
+                                variants={fadeUp}
                             >
                                 <TagSection
                                     className='items-center lg:items-start text-center lg:text-start'
@@ -135,58 +200,76 @@ const Home = () => {
                                     </UlPrimaryButton>
                                 </div>
                             </motion.div>
-                        </div>
-                        <div className='max-w-xl w-full flex-2/4 flex flex-col gap-4'>
+                        </motion.div>
+                        <motion.div
+                            className='max-w-xl w-full flex-2/4 flex flex-col gap-4'
+                            initial='hidden'
+                            whileInView='visible'
+                            viewport={{ once: true, amount: 0.3 }}
+                            variants={stagger}
+                        >
                             {routesFeatures.slice(0, 1).map((route, idx) => {
                                 const Icon = route.icon;
                                 return (
-                                    <Card
-                                        key={idx}
-                                        icon={<Icon />}
-                                        title={route.title}
-                                    >
-                                        {route.children ? (
-                                            <route.children />
-                                        ) : null}
-                                    </Card>
+                                    <motion.div key={idx} variants={fadeUp}>
+                                        <Card
+                                            icon={<Icon />}
+                                            title={route.title}
+                                        >
+                                            {route.children ? (
+                                                <route.children />
+                                            ) : null}
+                                        </Card>
+                                    </motion.div>
                                 );
                             })}
                             {routesFeatures.slice(1, 5).map((route, idx) => {
                                 const Icon = route.icon;
                                 return (
-                                    <Card
-                                        key={idx}
-                                        icon={<Icon />}
-                                        title={route.title}
-                                        paragraph={route.paragraph}
-                                    />
+                                    <motion.div key={idx} variants={fadeUp}>
+                                        <Card
+                                            icon={<Icon />}
+                                            title={route.title}
+                                            paragraph={route.paragraph}
+                                        />
+                                    </motion.div>
                                 );
                             })}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </Section>
             {/* How It Works Section */}
             <Section className='pt-36' id='how-it-works'>
-                <div className='w-full h-full relative flex items-center justify-center'>
-                    <BgSection
-                        className='top-[-17rem] lg:top-[-4rem]'
-                        animated
-                    />
-                    <div className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'>
-                        <div className='relative flex items-center justify-center'>
+                <BgSection className='top-[-12rem] lg:top-[0rem]' animated />
+                <div className='w-full h-full max-w-7xl mx-auto relative flex items-center justify-center'>
+                    <motion.div
+                        className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={stagger}
+                    >
+                        <motion.div
+                            className='relative flex items-center justify-center'
+                            variants={fadeUp}
+                        >
                             <TagSection
                                 className='text-center items-center max-w-2xl'
                                 tag1='How it works'
                                 title='Track your finances in 3 easy steps'
                                 description='Wealthy is designed to be user-friendly and intuitive, making it easy for anyone to manage their finances effectively.'
                             />
-                        </div>
-                        <div className='flex flex-col lg:flex-row items-center justify-center gap-8 pt-48'>
-                            {stepsHowItWorks.map((route) => (
-                                <div
+                        </motion.div>
+                        <motion.div
+                            className='flex flex-col lg:flex-row items-center justify-center gap-8 pt-48'
+                            variants={stagger}
+                        >
+                            {stepsHowItWorks.map((route, idx) => (
+                                <motion.div
                                     key={route.step}
                                     className='h-48 w-72 bg-white/80 dark:bg-gray-900/80 rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center border border-gray-100 dark:border-gray-800 transition-all duration-200 cursor-pointer hover:scale-105 hover:shadow-2xl hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50/80 dark:hover:bg-blue-900/60'
+                                    variants={fadeUp}
                                 >
                                     <div className='text-3xl mb-3 font-bold text-blue-500'>
                                         {route.step}
@@ -194,34 +277,49 @@ const Home = () => {
                                     <div className='font-semibold mb-2'>
                                         {route.title}
                                     </div>
-                                    <div className='text-sm text-gray-600 dark:text-gray-300'>
+                                    <div className='text-sm dark:text-white/70 text-black/80'>
                                         {route.description}
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
-                        <div className='relative w-max h-max'>
+                        </motion.div>
+                        <motion.div
+                            className='relative w-max h-max'
+                            variants={fadeUp}
+                        >
                             <UlLinkScd>
                                 <FaCircleInfo />
                                 Any questions ? <br />
                             </UlLinkScd>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </Section>
             {/* Testimonial Section */}
             <Section className='pt-36' id='testimonials'>
-                <div className='w-full h-max flex items-center justify-center relative overflow-hidden'>
-                    <div className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'>
-                        <div className='relative flex items-center justify-center'>
+                <div className='w-full max-w-7xl mx-auto h-full flex items-center justify-center relative overflow-hidden'>
+                    <motion.div
+                        className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={stagger}
+                    >
+                        <motion.div
+                            className='relative flex items-center justify-center'
+                            variants={fadeUp}
+                        >
                             <TagSection
                                 className='text-center items-center max-w-2xl'
                                 tag1='Testimonials'
                                 title='What our users say'
                                 description="Wealthy has transformed the way I manage my finances. It's user-friendly and has helped me save more than ever before!"
                             />
-                        </div>
-                        <div className='relative w-full max-w-[100rem] overflow-hidden pt-12'>
+                        </motion.div>
+                        <motion.div
+                            className='relative w-full max-w-[100rem] overflow-hidden py-12'
+                            variants={fadeIn}
+                        >
                             {/* Blur kiri */}
                             <div className='pointer-events-none absolute left-0 top-0 h-full w-32 z-10'>
                                 <div className='w-full h-full bg-gradient-to-r from-gray-50 dark:from-gray-950 to-transparent' />
@@ -240,116 +338,151 @@ const Home = () => {
                                 transition={{
                                     repeat: Infinity,
                                     repeatType: 'loop',
-                                    duration: testimonials.length * 10,
+                                    duration: 50,
                                     ease: 'linear',
                                 }}
                             >
                                 {testimonials
                                     .concat(testimonials)
                                     .map((item, idx) => (
-                                        <CardScd
+                                        <motion.div
                                             key={idx + '-' + item.name}
-                                            {...item}
-                                        />
+                                            variants={fadeUp}
+                                        >
+                                            <CardScd {...item} />
+                                        </motion.div>
                                     ))}
                             </motion.div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </Section>
             {/* Pricing Section */}
             <Section className='pt-24' id='pricing'>
-                <div className='w-full flex items-center justify-center relative'>
-                    <div className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'>
-                        <div className='relative flex items-center justify-center'>
+                <motion.div
+                    className='w-full max-w-7xl mx-auto flex items-center justify-center relative'
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={stagger}
+                >
+                    <motion.div
+                        className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'
+                        variants={fadeUp}
+                    >
+                        <motion.div
+                            className='relative flex items-center justify-center'
+                            variants={fadeUp}
+                        >
                             <TagSection
                                 className='text-center items-center max-w-2xl'
                                 tag1='Pricing'
                                 title='Choose Your Plan'
                                 description='Select the plan that fits your needs. Wealthy offers flexible pricing for everyone.'
                             />
-                        </div>
-                        <div className='w-full flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 pt-12'>
-                            <Card
-                                className='w-full max-w-lg flex-1/2'
-                                title='Free Plan'
-                                icon={<Award size={24} />}
-                                paragraph='Perfect for individuals who want to start managing their finances without any cost.'
+                        </motion.div>
+                        <motion.div
+                            className='w-full flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 pt-12'
+                            variants={stagger}
+                        >
+                            <motion.div
+                                variants={fadeUp}
+                                className='flex-1/2 w-full max-w-lg'
                             >
-                                <span className='absolute right-4 flex items-center text-2xl font-semibold'>
-                                    $0
-                                </span>
-                                <ul className='text-left text-sm text-gray-700 dark:text-gray-200 my-4 flex flex-col gap-2'>
-                                    <li className='flex items-center gap-2'>
-                                        <span className='text-green-500'>
-                                            <Check size={14} />
-                                        </span>
-                                        Unlimited income & expense tracking
-                                    </li>
-                                    <li className='flex items-center gap-2'>
-                                        <span className='text-green-500'>
-                                            <Check size={14} />
-                                        </span>
-                                        Basic monthly reports
-                                    </li>
-                                    <li className='flex items-center gap-2'>
-                                        <span className='text-green-500'>
-                                            <Check size={14} />
-                                        </span>
-                                        Personal budgeting
-                                    </li>
-                                    <li className='flex items-center gap-2'>
-                                        <span className='text-green-500'>
-                                            <Check size={14} />
-                                        </span>
-                                        Access all device
-                                    </li>
-                                    <li className='flex items-center gap-2'>
-                                        <span className='text-green-500'>
-                                            <Check size={14} />
-                                        </span>
-                                        Secure cloud backup
-                                    </li>
-                                </ul>
-                                <UlPrimaryButton
-                                    to='/pricing/free'
-                                    className='!w-full bg-blue-600'
+                                <Card
+                                    className='w-full max-w-lg'
+                                    title='Free Plan'
+                                    icon={<Award size={24} />}
+                                    paragraph='Perfect for individuals who want to start managing their finances without any cost.'
                                 >
-                                    Choose Free
-                                </UlPrimaryButton>
-                            </Card>
-                            <Card
-                                className='w-full max-w-lg flex-1/2'
-                                title='Premium Plan'
-                                icon={<BadgeDollarSign size={24} />}
+                                    <span className='absolute right-4 flex items-center text-2xl font-semibold'>
+                                        $0
+                                    </span>
+                                    <ul className='text-left text-sm dark:text-white/70 text-black/80 my-4 flex flex-col gap-2'>
+                                        <li className='flex items-center gap-2'>
+                                            <span className='text-green-500'>
+                                                <Check size={14} />
+                                            </span>
+                                            Unlimited income & expense tracking
+                                        </li>
+                                        <li className='flex items-center gap-2'>
+                                            <span className='text-green-500'>
+                                                <Check size={14} />
+                                            </span>
+                                            Basic monthly reports
+                                        </li>
+                                        <li className='flex items-center gap-2'>
+                                            <span className='text-green-500'>
+                                                <Check size={14} />
+                                            </span>
+                                            Personal budgeting
+                                        </li>
+                                        <li className='flex items-center gap-2'>
+                                            <span className='text-green-500'>
+                                                <Check size={14} />
+                                            </span>
+                                            Access all device
+                                        </li>
+                                        <li className='flex items-center gap-2'>
+                                            <span className='text-green-500'>
+                                                <Check size={14} />
+                                            </span>
+                                            Secure cloud backup
+                                        </li>
+                                    </ul>
+                                    <UlPrimaryButton
+                                        to='/pricing/free'
+                                        className='!w-full bg-blue-600'
+                                    >
+                                        Choose Free
+                                    </UlPrimaryButton>
+                                </Card>
+                            </motion.div>
+                            <motion.div
+                                variants={fadeUp}
+                                className='flex-1/2 w-full max-w-lg'
                             >
-                                <span className='absolute right-4 flex items-center text-2xl font-semibold'>
-                                    Coming Soon
-                                </span>
-                                <div></div>
-                                <UlPrimaryButton
-                                    to='#'
-                                    className='!w-full bg-gray-600 pointer-events-none'
+                                <Card
+                                    className='w-full max-w-lg'
+                                    title='Premium Plan'
+                                    icon={<BadgeDollarSign size={24} />}
                                 >
-                                    Choose Premium
-                                </UlPrimaryButton>
-                            </Card>
-                        </div>
-                        <div>
-                            <p className='text-sm text-gray-500 dark:text-gray-400 text-center max-w-2xl'>
+                                    <span className='absolute right-4 flex items-center text-2xl font-semibold'>
+                                        Coming Soon
+                                    </span>
+                                    <UlPrimaryButton
+                                        to='#'
+                                        className='!w-full bg-gray-600 pointer-events-none'
+                                    >
+                                        Choose Premium
+                                    </UlPrimaryButton>
+                                </Card>
+                            </motion.div>
+                        </motion.div>
+                        <motion.div variants={fadeUp}>
+                            <p className='text-sm dark:text-white/70 text-black/80 text-center max-w-2xl'>
                                 All plans come with a 30-day money-back
                                 guarantee. If you're not satisfied, we'll refund
                                 your purchase, no questions asked.
                             </p>
-                        </div>
-                    </div>
-                </div>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
             </Section>
             {/* FAQ Section */}
             <Section className='pt-36' id='faq' underCross={true}>
-                <div className='w-full h-max relative flex flex-col items-center mb-28'>
-                    <BgSection className='top-[-7rem]' />
-                    <div className='w-full h-full flex flex-col items-center gap-4 px-4 md:px-6 lg:px-8'>
+                <BgSection className='top-[-22rem] lg:top-[-22rem] min-h-[1440px]' />
+                <motion.div
+                    className='w-full max-w-7xl mx-auto h-max relative flex flex-col items-center mb-28'
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={stagger}
+                >
+                    <motion.div
+                        className='w-full h-full flex flex-col items-center gap-4 px-4 md:px-6 lg:px-8'
+                        variants={fadeUp}
+                    >
                         <div className='relative flex items-center justify-center'>
                             <TagSection
                                 className='text-center items-center max-w-2xl'
@@ -358,27 +491,31 @@ const Home = () => {
                                 description='Wealthy is designed to be user-friendly and intuitive, making it easy for anyone to manage their finances effectively.'
                             />
                         </div>
-                        <div className='w-full max-w-2xl h-full flex flex-col gap-4 pt-48'>
+                        <motion.div
+                            className='w-full max-w-2xl h-full flex flex-col gap-4 pt-48'
+                            variants={stagger}
+                        >
                             {faqData.map((route, idx) => (
-                                <DropDown
-                                    key={idx}
-                                    title={route.question}
-                                    description={route.answer}
-                                    open={openIndices.has(idx)}
-                                    setOpen={() => handleDropdown(idx)}
-                                />
+                                <motion.div key={idx} variants={fadeUp}>
+                                    <DropDown
+                                        title={route.question}
+                                        description={route.answer}
+                                        open={openIndices.has(idx)}
+                                        setOpen={() => handleDropdown(idx)}
+                                    />
+                                </motion.div>
                             ))}
-                        </div>
-                        <div>
-                            <p className='text-sm font-semibold text-gray-500 dark:text-gray-400 text-center max-w-2xl tracking-tight'>
+                        </motion.div>
+                        <motion.div variants={fadeUp}>
+                            <p className='text-sm font-semibold dark:text-white/70 text-black/80 text-center max-w-2xl tracking-tight'>
                                 Still have questions?Email at us:{' '}
-                                <span className='text-blue-500 cursor-pointer hover:underline'>
+                                <span className='text-blue-500 cursor-pointer hover:underline font-semibold'>
                                     wealthy@gmail.com
                                 </span>
                             </p>
-                        </div>
-                    </div>
-                </div>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
             </Section>
             {/* Contact Section */}
         </div>

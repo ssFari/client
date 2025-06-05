@@ -1,13 +1,7 @@
-import {
-    FaInstagram,
-    FaLinkedin,
-    FaTwitter,
-    FaMapMarkerAlt,
-    FaEnvelope,
-    FaPhone,
-} from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { routesNavbar } from '../routes/Routes';
+import { FaGithub, FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
     return (
@@ -15,7 +9,7 @@ const Footer = () => {
             <div className='max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8'>
                 {/* Company Info */}
                 <div className='flex flex-col gap-2'>
-                    <span className='font-bold text-lg text-gray-700 dark:text-gray-200 mb-2'>
+                    <span className='font-bold text-lg dark:text-white/70 text-black/80 mb-2'>
                         Wealthy
                     </span>
                     <p className='text-xs'>
@@ -25,7 +19,7 @@ const Footer = () => {
                 </div>
                 {/* Quick Links */}
                 <div>
-                    <span className='font-semibold text-gray-700 dark:text-gray-200 mb-2 block'>
+                    <span className='font-semibold dark:text-white/70 text-black/80 mb-2 block'>
                         Quick Links
                     </span>
                     <ul className='flex flex-col gap-1'>
@@ -43,7 +37,7 @@ const Footer = () => {
                 </div>
                 {/* Contact Info */}
                 <div>
-                    <span className='font-semibold text-gray-700 dark:text-gray-200 mb-2 block'>
+                    <span className='font-semibold dark:text-white/70 text-black/80 mb-2 block'>
                         Contact
                     </span>
                     <ul className='flex flex-col gap-2 text-xs'>
@@ -67,15 +61,11 @@ const Footer = () => {
                                 +62 123-456-789
                             </Link>
                         </li>
-                        <li className='flex items-center gap-2'>
-                            <FaMapMarkerAlt /> Jl. Contoh No. 123, Jakarta,
-                            Indonesia
-                        </li>
                     </ul>
                 </div>
                 {/* Newsletter */}
                 <div>
-                    <span className='font-semibold text-gray-700 dark:text-gray-200 mb-2 block'>
+                    <span className='font-semibold dark:text-white/70 text-black/80 mb-2 block'>
                         Newsletter
                     </span>
                     <form className='flex flex-col gap-2'>
@@ -106,37 +96,41 @@ const Footer = () => {
                         target='_blank'
                         rel='noopener noreferrer'
                         aria-label='Instagram'
-                        className='hover:text-pink-500 transition-colors'
+                        className='hover:text-blue-600 transition-colors duration-300'
                     >
                         <FaInstagram size={22} />
                     </Link>
                     <Link
-                        to='https://linkedin.com/company/wealthy'
+                        to='https://www.instagram.com/_luthfi_punya/'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        aria-label='Instagram'
+                        className='hover:text-blue-600 transition-colors duration-300'
+                    >
+                        <FaGithub size={22} />
+                    </Link>
+                    <Link
+                        to='https://www.linkedin.com/in/safari-luthfi-4ba665248/'
                         target='_blank'
                         rel='noopener noreferrer'
                         aria-label='LinkedIn'
-                        className='hover:text-blue-700 transition-colors'
+                        className='hover:text-blue-600 transition-colors duration-300'
                     >
                         <FaLinkedin size={22} />
                     </Link>
                     <Link
-                        to
-                        href='https://twitter.com/wealthy'
+                        to='https://x.com/SafariLuthfi1'
                         target='_blank'
                         rel='noopener noreferrer'
-                        aria-label='Twitter'
-                        className='hover:text-blue-400 transition-colors'
+                        aria-label='X'
+                        className='hover:text-blue-600 transition-colors duration-300'
                     >
-                        <FaTwitter size={22} />
+                        <FaXTwitter size={22} />
                     </Link>
                 </div>
                 <div className='flex flex-col md:flex-row items-center gap-2 text-xs'>
                     <Link to='/privacy' className='hover:underline'>
-                        Privacy Policy
-                    </Link>
-                    <span className='hidden md:inline'>|</span>
-                    <Link to='/terms' className='hover:underline'>
-                        Terms of Service
+                        Personal Portfolio
                     </Link>
                     <span className='hidden md:inline'>|</span>
                     <span>

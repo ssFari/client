@@ -18,6 +18,8 @@ import user7 from '../../../assets/user-img/user-7.jpg';
 import user8 from '../../../assets/user-img/user-8.jpg';
 import user9 from '../../../assets/user-img/user-9.jpg';
 import user10 from '../../../assets/user-img/user-10.jpg';
+import { profile1 } from '../../../assets/img/imgAll';
+import { FaGithub, FaInstagram, FaLinkedin, FaXTwitter } from 'react-icons/fa6';
 
 export const routesNavbar = [
     {
@@ -195,3 +197,32 @@ export const faqData = [
         answer: 'Yes, Wealthy can be accessed from various devices such as smartphones, tablets, and computers.',
     },
 ];
+
+export const creatorData = {
+    name: 'Muhammad Safari Luthfi',
+    title: 'Jr. Web Developer',
+    description: `Wealthy is a personal finance management app that I built as a portfolio project during my learning journey as a junior web developer. It's designed to help users track their income and expenses, manage their budgets, and build financial awareness through a clean and intuitive interface.`,
+    image: profile1,
+    socials: [
+        {
+            href: 'https://www.instagram.com/_luthfi_punya/',
+            Icon: FaInstagram,
+            label: 'Instagram',
+        },
+        {
+            href: 'https://github.com/ssFari', // Ganti dengan URL GitHub Anda
+            Icon: FaGithub,
+            label: 'GitHub',
+        },
+        {
+            href: 'https://www.linkedin.com/in/safari-luthfi-4ba665248/', // Ganti dengan URL LinkedIn Anda
+            Icon: FaLinkedin,
+            label: 'LinkedIn',
+        },
+        {
+            href: 'https://x.com/SafariLuthfi1', // Ganti dengan URL X/Twitter Anda
+            Icon: FaXTwitter,
+            label: 'X (Twitter)',
+        },
+    ],
+};

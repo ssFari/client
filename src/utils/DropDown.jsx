@@ -30,7 +30,7 @@ const DropDown = ({ title, description, open, setOpen }) => {
             }}
             transition={{
                 type: 'spring',
-                stiffness: 500,
+                stiffness: 200,
                 damping: 15,
             }}
         >
@@ -74,7 +74,7 @@ const DropDown = ({ title, description, open, setOpen }) => {
                         }}
                         className='overflow-hidden'
                     >
-                        <div className='px-4 pb-4 text-gray-700 dark:text-gray-300'>
+                        <div className='px-4 pb-4 dark:text-white/70 text-black/80'>
                             <p className='text-sm'>{description}</p>
                         </div>
                     </motion.div>

@@ -8,7 +8,9 @@ const MainLayout = () => {
             <div className='relative z-10 w-full h-full flex flex-col items-center justify-between'>
                 <MainNavbar />
                 <Outlet />
-                <Footer />
+                <div className='relative w-full flex flex-col items-center justify-between'>
+                    <Footer />
+                </div>
             </div>
         </div>
     );
