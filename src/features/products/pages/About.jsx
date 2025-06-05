@@ -82,7 +82,12 @@ const About = () => {
                             </UlSecondButton>
                         </motion.div>
                     </motion.div>
-                    <div className='relative w-full mx-auto lg:min-w-5xl xl:min-w-7xl h-[34rem] lg:h-[48rem] flex items-center justify-center'>
+                    <motion.div
+                        className='relative w-full mx-auto lg:min-w-5xl xl:min-w-7xl h-[34rem] lg:h-[48rem] flex items-center justify-center'
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                    >
                         <motion.div
                             style={{ x: bg1X, y: bg1Y }}
                             className='absolute dark:bg-gray-800 bg-gray-200 w-[calc(100%-10rem)] h-[calc(100%-5rem)] rounded-2xl top-[138px] will-change-transform'
@@ -107,20 +112,28 @@ const About = () => {
                                 className='relative w-full min-w-fit h-full object-cover brightness-125'
                             />
                         </motion.div>
-                    </div>
+                    </motion.div>
                 </div>
             </Section>
             <Section className='pt-36' id='our-story'>
                 <div className='w-full h-max flex flex-col items-center gap-4 px-4 sm:px-6 lg:px-8'>
-                    <div className='w-full max-w-7xl grid grid-cols-1 lg:grid-cols-6 gap-4'>
-                        <TagSection
-                            className='text-center lg:text-start items-center lg:items-start lg:col-span-3 pb-6'
-                            tag1='Our Story'
-                            title={`What was the motivation behind Wealthy's creation?`}
-                            description={`Let's start from the beginning`}
-                        />
+                    <motion.div
+                        className='w-full max-w-7xl grid grid-cols-1 lg:grid-cols-6 gap-4'
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={stagger}
+                    >
+                        <motion.div variants={fadeUp} className='lg:col-span-3'>
+                            <TagSection
+                                className='text-center lg:text-start items-center lg:items-start lg:col-span-3 pb-6'
+                                tag1='Our Story'
+                                title={`What was the motivation behind Wealthy's creation?`}
+                                description={`Let's start from the beginning`}
+                            />
+                        </motion.div>
 
-                        <div className='lg:col-span-3'>
+                        <motion.div className='lg:col-span-3' variants={fadeUp}>
                             <div className='text-sm md:text-base text-justify leading-relaxed dark:text-white/70 text-black/80 flex flex-col gap-4'>
                                 <span className='block'>
                                     Wealthy was born out of a simple yet
@@ -157,7 +170,9 @@ const About = () => {
                                     turn financial tracking into a simple,
                                     enjoyable, and empowering experience.
                                 </span>
-                                <ul>
+                                <ul className='list-disc list-inside'>
+                                    {' '}
+                                    {/* Corrected typo: added "list-inside" */}
                                     It's not just about tracking your income and
                                     expenses. It's about:
                                     <li>✅ Building financial confidence</li>
@@ -167,8 +182,8 @@ const About = () => {
                                     <li>✅ Feeling at peace with your money</li>
                                 </ul>
                             </div>
-                        </div>
-                        <div className='lg:col-span-6'>
+                        </motion.div>
+                        <motion.div className='lg:col-span-6' variants={fadeIn}>
                             <div className='relative w-full h-[300px] flex items-center justify-center overflow-hidden rounded-2xl group cursor-pointer'>
                                 <img
                                     src={about1}
@@ -176,32 +191,44 @@ const About = () => {
                                     className='brightness-50 hover:scale-110 duration-300 ease-in-out hover:brightness-70'
                                 />
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <Card
-                            className='lg:col-span-3 h-full'
-                            title='Vision'
-                            icon={<Star />}
-                            paragraph='To create a world where everyone feels confident, in control, and empowered in managing their personal finances — achieving true wealth in every sense.'
-                        />
-                        <Card
-                            className='lg:col-span-3 h-full'
-                            title='Mission'
-                            icon={<Target />}
-                            paragraph='Our mission is to empower individuals to understand and take control of their finances through a simple, intuitive, and enjoyable experience — helping them build financial confidence and live more peacefully.'
-                        />
-                    </div>
+                        <motion.div variants={fadeUp} className='lg:col-span-3'>
+                            <Card
+                                className='h-full'
+                                title='Vision'
+                                icon={<Star />}
+                                paragraph='To create a world where everyone feels confident, in control, and empowered in managing their personal finances — achieving true wealth in every sense.'
+                            />
+                        </motion.div>
+                        <motion.div variants={fadeUp} className='lg:col-span-3'>
+                            <Card
+                                className='h-full'
+                                title='Mission'
+                                icon={<Target />}
+                                paragraph='Our mission is to empower individuals to understand and take control of their finances through a simple, intuitive, and enjoyable experience — helping them build financial confidence and live more peacefully.'
+                            />
+                        </motion.div>
+                    </motion.div>
                 </div>
             </Section>
             <Section className='pt-36' id='creators'>
                 <div className='w-full h-max flex flex-col items-center px-4 sm:px-6 lg:px-8 bg-gray-200/70 dark:bg-gray-900/45 py-10'>
-                    <div className='w-full max-w-7xl flex flex-col gap-10 items-center'>
-                        <TagSection
-                            className='text-center items-center max-w-xl'
-                            tag1='Creators'
-                            title='Meet the Creators'
-                            description='Wealthy was created by a team of passionate individuals who are dedicated to helping people manage their finances.'
-                        />
+                    <motion.div
+                        className='w-full max-w-7xl flex flex-col gap-10 items-center'
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={stagger}
+                    >
+                        <motion.div variants={fadeUp}>
+                            <TagSection
+                                className='text-center items-center max-w-xl'
+                                tag1='Creators'
+                                title='Meet the Creators'
+                                description='Wealthy was created by a team of passionate individuals who are dedicated to helping people manage their finances.'
+                            />
+                        </motion.div>
                         <div
                             className='relative grid grid-cols-1 lg:grid-cols-2 gap-10 overflow-hidden rounded-2xl lg:cursor-default cursor-pointer group'
                             onClick={() => {
@@ -209,7 +236,10 @@ const About = () => {
                                     setActiveOnClick((prev) => !prev);
                             }}
                         >
-                            <div className='col-span-1 gap-4'>
+                            <motion.div
+                                className='col-span-1 gap-4'
+                                variants={fadeIn}
+                            >
                                 <div className='relative w-full h-[500px] flex items-center justify-center overflow-hidden rounded-2xl cursor-pointer border border-gray-200/70 dark:border-gray-900/45'>
                                     <img
                                         src={creatorData.image}
@@ -226,8 +256,11 @@ const About = () => {
                                         }
                                     />
                                 </div>
-                            </div>
-                            <div className='col-span-1 w-full h-full absolute lg:relative gap-4 border border-gray-200/70 dark:border-gray-900/45 lg:border-0'>
+                            </motion.div>
+                            <motion.div
+                                className='col-span-1 w-full h-full absolute lg:relative gap-4 border border-gray-200/70 dark:border-gray-900/45 lg:border-0'
+                                variants={fadeUp}
+                            >
                                 <div className='relative w-full h-full flex flex-col items-start justify-end lg:justify-start'>
                                     <div className='relative w-full p-4 flex flex-col items-start gap-2 before:content-[""] before:w-[10%] before:h-[2px] dark:before:bg-white/70 before:bg-black/80 before:absolute before:bottom-4 before:left-4'>
                                         <p className='text-xl text-white/70  dark:lg:text-white/70 lg:text-black/80 text-center lg:text-start'>
@@ -276,36 +309,45 @@ const About = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </Section>
             <Section className='pt-36' id='team' underCross={true}>
                 <div className='w-full h-max flex flex-col items-center px-4 sm:px-6 lg:px-8 pb-36'>
-                    <div className='w-full max-w-7xl h-full flex flex-col gap-8 items-center justify-center'>
-                        <Card className={'w-full'}>
-                            <div className='flex flex-col items-center justify-center gap-4 py-14'>
-                                <h3 className='text-3xl lg:text-5xl font-bold text-center flex items-center gap-3'>
-                                    <span className='inline-block animate-bounce'>
-                                        🚀
-                                    </span>
-                                    Start the Journey to Success!
-                                </h3>
-                                <p className='text-l max-w-2xl text-center text-white/70 dark:text-white/70 lg:text-black/80'>
-                                    Join us and be part of a growing community.
-                                    Seize opportunities, develop your potential,
-                                    and realize your dreams with us!
-                                </p>
-                                <UlPrimaryButton
-                                    to={'/auth/login'}
-                                    className='mt-2 px-8 py-3 text-lg hover:bg-blue-700 transition-colors duration-300 '
-                                >
-                                    Start Now
-                                </UlPrimaryButton>
-                            </div>
-                        </Card>
-                    </div>
+                    <motion.div
+                        className='w-full max-w-7xl h-full flex flex-col gap-8 items-center justify-center'
+                        initial='hidden'
+                        whileInView='visible'
+                        viewport={{ once: true, amount: 0.3 }}
+                        variants={stagger}
+                    >
+                        <motion.div className={'w-full'} variants={fadeIn}>
+                            <Card>
+                                <div className='flex flex-col items-center justify-center gap-4 py-14'>
+                                    <h3 className='text-3xl lg:text-5xl font-bold text-center flex items-center gap-3'>
+                                        <span className='inline-block animate-bounce'>
+                                            🚀
+                                        </span>
+                                        Start the Journey to Success!
+                                    </h3>
+                                    <p className='text-l max-w-2xl text-center text-white/70 dark:text-white/70 lg:text-black/80'>
+                                        Join us and be part of a growing
+                                        community. Seize opportunities, develop
+                                        your potential, and realize your dreams
+                                        with us!
+                                    </p>
+                                    <UlPrimaryButton
+                                        to={'/auth/login'}
+                                        className='mt-2 px-8 py-3 text-lg hover:bg-blue-700 transition-colors duration-300 '
+                                    >
+                                        Start Now
+                                    </UlPrimaryButton>
+                                </div>
+                            </Card>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </Section>
         </div>

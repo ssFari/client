@@ -357,10 +357,58 @@ const Home = () => {
                     </motion.div>
                 </div>
             </Section>
-            {/* Pricing Section */}
-            <Section className='pt-24' id='pricing'>
+            {/* FAQ Section */}
+            <Section className='pt-36' id='faq'>
+                <BgSection className='top-[-22rem] lg:top-[-22rem] min-h-[1440px]' />
                 <motion.div
-                    className='w-full max-w-7xl mx-auto flex items-center justify-center relative'
+                    className='w-full max-w-7xl mx-auto h-max relative flex flex-col items-center'
+                    initial='hidden'
+                    whileInView='visible'
+                    viewport={{ once: true, amount: 0.3 }}
+                    variants={stagger}
+                >
+                    <motion.div
+                        className='w-full h-full flex flex-col items-center gap-4 px-4 md:px-6 lg:px-8'
+                        variants={fadeUp}
+                    >
+                        <div className='relative flex items-center justify-center'>
+                            <TagSection
+                                className='text-center items-center max-w-2xl'
+                                tag1='FAQ'
+                                title='Frequently Asked Questions'
+                                description='Wealthy is designed to be user-friendly and intuitive, making it easy for anyone to manage their finances effectively.'
+                            />
+                        </div>
+                        <motion.div
+                            className='w-full max-w-2xl h-full flex flex-col gap-4 pt-48'
+                            variants={stagger}
+                        >
+                            {faqData.map((route, idx) => (
+                                <motion.div key={idx} variants={fadeUp}>
+                                    <DropDown
+                                        title={route.question}
+                                        description={route.answer}
+                                        open={openIndices.has(idx)}
+                                        setOpen={() => handleDropdown(idx)}
+                                    />
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                        <motion.div variants={fadeUp}>
+                            <p className='text-sm font-semibold dark:text-white/70 text-black/80 text-center max-w-2xl tracking-tight'>
+                                Still have questions?Email at us:{' '}
+                                <span className='text-blue-500 cursor-pointer hover:underline font-semibold'>
+                                    wealthy@gmail.com
+                                </span>
+                            </p>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+            </Section>
+            {/* Pricing Section */}
+            <Section className='pt-24' id='pricing' underCross={true}>
+                <motion.div
+                    className='w-full max-w-7xl mx-auto flex items-center justify-center relative mb-28'
                     initial='hidden'
                     whileInView='visible'
                     viewport={{ once: true, amount: 0.3 }}
@@ -469,55 +517,6 @@ const Home = () => {
                     </motion.div>
                 </motion.div>
             </Section>
-            {/* FAQ Section */}
-            <Section className='pt-36' id='faq' underCross={true}>
-                <BgSection className='top-[-22rem] lg:top-[-22rem] min-h-[1440px]' />
-                <motion.div
-                    className='w-full max-w-7xl mx-auto h-max relative flex flex-col items-center mb-28'
-                    initial='hidden'
-                    whileInView='visible'
-                    viewport={{ once: true, amount: 0.3 }}
-                    variants={stagger}
-                >
-                    <motion.div
-                        className='w-full h-full flex flex-col items-center gap-4 px-4 md:px-6 lg:px-8'
-                        variants={fadeUp}
-                    >
-                        <div className='relative flex items-center justify-center'>
-                            <TagSection
-                                className='text-center items-center max-w-2xl'
-                                tag1='FAQ'
-                                title='Frequently Asked Questions'
-                                description='Wealthy is designed to be user-friendly and intuitive, making it easy for anyone to manage their finances effectively.'
-                            />
-                        </div>
-                        <motion.div
-                            className='w-full max-w-2xl h-full flex flex-col gap-4 pt-48'
-                            variants={stagger}
-                        >
-                            {faqData.map((route, idx) => (
-                                <motion.div key={idx} variants={fadeUp}>
-                                    <DropDown
-                                        title={route.question}
-                                        description={route.answer}
-                                        open={openIndices.has(idx)}
-                                        setOpen={() => handleDropdown(idx)}
-                                    />
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                        <motion.div variants={fadeUp}>
-                            <p className='text-sm font-semibold dark:text-white/70 text-black/80 text-center max-w-2xl tracking-tight'>
-                                Still have questions?Email at us:{' '}
-                                <span className='text-blue-500 cursor-pointer hover:underline font-semibold'>
-                                    wealthy@gmail.com
-                                </span>
-                            </p>
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
-            </Section>
-            {/* Contact Section */}
         </div>
     );
 };
