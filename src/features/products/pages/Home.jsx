@@ -1,5 +1,4 @@
-// src/features/products/pages/Home.jsxi
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaCircleInfo } from 'react-icons/fa6';
 import {
@@ -15,6 +14,7 @@ import { Card, CardScd } from '../../../components/componentAll';
 import {
     useHandleMouseMove,
     useStickyScrollItem,
+    useDropdownSet,
 } from '../../../hooks/customHooks';
 import {
     faqData,
@@ -30,19 +30,7 @@ import { useLocation } from 'react-router-dom';
 const Home = () => {
     const { bg1X, bg1Y, bg2X, bg2Y, bg3X, bg3Y } = useHandleMouseMove();
     const { tagY, featureRef, isLgUp } = useStickyScrollItem();
-    const [openIndices, setOpenIndices] = useState(new Set());
-
-    const handleDropdown = (idx) => {
-        setOpenIndices((prev) => {
-            const newSet = new Set(prev);
-            if (newSet.has(idx)) {
-                newSet.delete(idx);
-            } else {
-                newSet.add(idx);
-            }
-            return newSet;
-        });
-    };
+    const [openIndices, handleDropdown] = useDropdownSet();
 
     const { fadeUp, fadeIn, stagger } = useMotionAnimation();
 
@@ -241,7 +229,7 @@ const Home = () => {
             </Section>
             {/* How It Works Section */}
             <Section className='pt-36' id='how-it-works'>
-                <BgSection className='top-[-12rem] lg:top-[0rem]' animated />
+                <BgSection className='top-[-12rem] lg:top-0' animated />
                 <div className='w-full h-full max-w-7xl mx-auto relative flex items-center justify-center'>
                     <motion.div
                         className='w-full h-full flex flex-col items-center gap-12 px-4 md:px-6 lg:px-8'
@@ -433,7 +421,7 @@ const Home = () => {
                                     </ul>
                                     <UlPrimaryButton
                                         to='/pricing/free'
-                                        className='!w-full bg-blue-600'
+                                        className='!w-full bg-blue-600 hover:bg-blue-700'
                                     >
                                         Choose Free
                                     </UlPrimaryButton>
@@ -496,7 +484,7 @@ const Home = () => {
                             className='w-full max-w-2xl h-full flex flex-col gap-4 pt-48'
                             variants={stagger}
                         >
-                            {faqData.map((route, idx) => (
+                            {faqData.slice(0, 5).map((route, idx) => (
                                 <motion.div key={idx} variants={fadeUp}>
                                     <DropDown
                                         title={route.question}

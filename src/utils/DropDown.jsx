@@ -57,9 +57,7 @@ const DropDown = ({ title, description, open, setOpen }) => {
                     handleToggle(e); // Panggil handleToggle secara langsung
                 }}
             >
-                <span className='text-lg font-semibold text-gray-900 dark:text-white'>
-                    {title}
-                </span>
+                <span className='text-lg font-semibold'>{title}</span>
                 <span
                     className={`ml-2 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
                     style={{ willChange: 'transform' }}
@@ -67,14 +65,12 @@ const DropDown = ({ title, description, open, setOpen }) => {
                     {open ? (
                         <Minus
                             size={20}
-                            className='text-gray-400 dark:text-white'
-                            color='#fff'
+                            className='dark:text-white/70 text-black/80'
                         />
                     ) : (
                         <Plus
                             size={20}
-                            className='text-gray-400 dark:text-white'
-                            color='#fff'
+                            className='dark:text-white/70 text-black/80'
                         />
                     )}
                 </span>

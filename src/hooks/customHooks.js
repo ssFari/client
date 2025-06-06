@@ -5,6 +5,7 @@ import useStickyScrollItem from './useStickyScrollItem';
 import useIsMobileDevice from './useIsMobileDevice';
 import useIsLgUp from './useIsLgUp';
 import useMotionAnimation from './useMotionAnimation';
+import useDropdownSet from './useDropdownSet';
 
 export {
     useDarkMode,
@@ -14,4 +15,5 @@ export {
     useIsMobileDevice,
     useIsLgUp,
     useMotionAnimation,
+    useDropdownSet,
 };

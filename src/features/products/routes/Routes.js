@@ -196,6 +196,18 @@ export const faqData = [
         question: 'Can I access Wealthy on multiple devices?',
         answer: 'Yes, Wealthy can be accessed from various devices such as smartphones, tablets, and computers.',
     },
+    {
+        question: 'How do I reset my password?',
+        answer: 'Go to the login page, click on "Forgot Password?", and follow the instructions sent to your email to reset your password.',
+    },
+    {
+        question: 'Where can I find my transaction history?',
+        answer: 'You can view your transaction history in the Dashboard under the "Transactions" section.',
+    },
+    {
+        question: 'How do I contact customer support?',
+        answer: 'You can contact our support team via the Contact Us page or by clicking the button below.',
+    },
 ];
 
 export const creatorData = {

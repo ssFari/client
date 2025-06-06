@@ -30,7 +30,7 @@ const ComingSoonLayout = () => {
     }, []);
 
     return (
-        <div className='h-full min-h-screen w-full flex flex-col items-center justify-center bg-white dark:bg-gray-950 px-4'>
+        <div className='h-full min-h-screen w-full flex flex-col items-center justify-center px-4 z-30'>
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -53,12 +53,12 @@ const ComingSoonLayout = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
-                            className='flex flex-col items-center bg-white/80 dark:bg-gray-900/80 shadow-lg rounded-xl px-4 py-2 min-w-[56px] border border-gray-100 dark:border-gray-800'
+                            className='flex flex-col items-center bg-white dark:bg-gray-900 shadow-lg rounded-xl px-4 py-2 min-w-[56px] border border-gray-100 dark:border-gray-800'
                         >
                             <span className='text-blue-600 dark:text-blue-300 text-2xl md:text-3xl font-bold font-mono tracking-wider'>
                                 {String(item.value).padStart(2, '0')}
                             </span>
-                            <span className='text-[10px] md:text-xs text-gray-400 dark:text-gray-500 font-semibold uppercase tracking-widest mt-1'>
+                            <span className='text-[10px] md:text-xs dark:text-white/50 text-black/80 font-semibold uppercase tracking-widest mt-1'>
                                 {item.label}
                             </span>
                         </motion.div>
